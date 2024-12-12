@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-crud-deployment
+  labels:
+    app: flask-crud
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-crud
+  template:
+    metadata:
+      labels:
+        app: flask-crud
+    spec:
+      containers:
+      - name:  flask-crud-container
+        image: menendis/flask-crud-api:latest 
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "10m"
+          limits:
+            memory: "128Mi"
+            cpu: "50m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-crud-service
+spec:
+  selector:
+    app: flask-crud
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
