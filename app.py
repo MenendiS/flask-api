@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import os
 
 app = Flask(__name__)
 
@@ -7,8 +8,18 @@ items = [
     {"id": 1, "name": "Item One", "description": "This is item one"},
     {"id": 2, "name": "Item Two", "description": "This is item two"},
     {"id": 3, "name": "Item Three", "description": "This is item three"},
-    {"id": 4, "name": "Item Four", "description": "This is item four"}
+    {"id": 4, "name": "Item Four", "description": "This is item four"},
+    {"id": 5, "name": "Item Five", "description": "This is item five"},
 ]
+
+@app.route('/', methods=['GET'])
+def get_secret():
+    secret = os.getenv("MY_SECRET")
+    
+    if not secret:
+        return jsonify({"error": "Secret key not found. Ensure the environment variable MY_SECRET_KEY is set."}), 500
+
+    return jsonify({"secret": secret}), 200
 
 # Get all items
 @app.route('/items', methods=['GET'])
@@ -43,4 +54,4 @@ def delete_item(item_id):
     return jsonify({"message": "Item deleted"}), 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0'
