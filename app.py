@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 # In-memory data store
 items = [
-    {"id": 1, "name": "Item One", "description": "This is item one"},
+    {"id": 12, "name": "Item Twelve", "description": "This is item twelve"},
     {"id": 2, "name": "Item Two", "description": "This is item two"},
     {"id": 3, "name": "Item Three", "description": "This is item three"},
     {"id": 4, "name": "Item Four", "description": "This is item four"},
