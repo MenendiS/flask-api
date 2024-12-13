@@ -20,6 +20,6 @@ jobs:
 
             - name: Build and Push Image
               run: |
-                docker build -t flask-api:latest
+                docker build -t flask-api:latest .
                 docker tag flask-api:latest menendis/flask-api:latest
                 docker push menendis/flask-api:latest
