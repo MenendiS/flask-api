@@ -20,20 +20,20 @@ jobs:
             
             - name: Build and Push Image
               run: |
-                docker build -t flask-api:${{ github.sha }} .
-                docker tag flask-api:${{ github.sha }} menendis/flask-api:${{ github.sha }}
-                docker push menendis/flask-api:${{ github.sha }}
+                docker build -t flask-api:${{github.sha}} .
+                docker tag flask-api:${{ github.sha }} menendis/flask-api:${{github.sha}}
+                docker push menendis/flask-api:${{github.sha}}
 
             - name: Update Deployment Manifest
               run: |
-                sed -i "s|image: menendis/flask-api:.*|image: menendis/flask-api:${{ github.sha }}|" flask-api.yaml
+                sed -i "s|image: menendis/flask-api:.*|image: menendis/flask-api:${{github.sha}}|" deployments.yaml
 
             - name: Commit and Push Changes
               run: |
                 git config user.name "GitHub Actions"
                 git config user.email "actions@github.com"
                 git add deployment.yaml
-                git commit -m "Update image tag to ${{ github.sha }}"
+                git commit -m "Update image tag to ${{github.sha}}"
                 git push
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
