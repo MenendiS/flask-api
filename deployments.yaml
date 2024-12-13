@@ -37,9 +37,9 @@ metadata:
 spec:
   selector:
     app: flask-crud
+  type: NodePort
   ports:
   - protocol: TCP
     port: 5000
     targetPort: 5000
-  type: NodePort
-
+    NodePort: 31282
